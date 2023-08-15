@@ -5,4 +5,5 @@ module.exports = {
   ],
   transformIgnorePatterns: [],
   collectCoverage: true,
+  coverageReporters: ['text'],
 };
