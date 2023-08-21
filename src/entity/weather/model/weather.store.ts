@@ -1,31 +1,23 @@
-import { createStore } from 'vuex';
 import { WeatherAPI } from '../api';
-import { WeatherResult } from '../types';
+import type { WeatherResult } from '../types';
+import { defineStore } from 'pinia';
 
-type State = {
+type WeatherState = {
   cities: {[p: string]: WeatherResult | undefined | Error};
 }
 
-export default createStore<State>({
-  state: {
+export const useWeatherStore = defineStore('weather', {
+  state: (): WeatherState => ({
     cities: {},
-  },
-  getters: {
-  },
-  mutations: {
-    setWeather(state, { cityName, weather }: { cityName: string, weather: WeatherResult }) {
-      state.cities[cityName] = weather;
-    },
-  },
+  }),
+  getters: {},
   actions: {
-    async fetchWeatherByCity(context, cityName: string) {
-      const api = new WeatherAPI(process.env.VUE_APP_API_ID);
+    async fetchWeatherByCity(cityName: string) {
+      console.log('ENV', config.API_ID, config.API_ID);
+      const api = new WeatherAPI(config.API_ID);
       const geoCoord = await api.convertToCoord(cityName);
       const result = await api.getWeatherByCoord(geoCoord[0].lat, geoCoord[0].lon);
-      context.commit('setWeather', {
-        cityName,
-        weather: result,
-      });
+      this.cities[cityName] = result;
     },
   },
 });

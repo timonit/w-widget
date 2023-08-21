@@ -1,3 +1,3 @@
 export * from './api';
 export * from './model';
-export { WeatherConverToCoordResult, WeatherResult } from './types';
+export type { WeatherConverToCoordResult, WeatherResult } from './types';

@@ -1,4 +1,4 @@
-import { WeatherConverToCoordResult, WeatherResult } from '../types';
+import type { WeatherConverToCoordResult, WeatherResult } from '../types';
 
 export const weatherResultMock: WeatherResult = {
   coord: {

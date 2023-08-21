@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
 /**
  * base API
@@ -7,12 +7,13 @@ export default abstract class API {
   abstract baseAPI: string;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  request<T = any, D = any>(
+  async request<T = any, D = any>(
     config: AxiosRequestConfig<D>,
   ): Promise<AxiosResponse<T, D>> {
     const curConfig = { baseURL: this.baseAPI, ...config };
 
-    return axios.request(curConfig);
+    const res = await axios.request(curConfig);
+    return res;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

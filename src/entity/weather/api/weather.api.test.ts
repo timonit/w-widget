@@ -1,3 +1,4 @@
+import { expect, test, describe, beforeEach} from 'vitest'
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { WeatherAPI } from './weather.api';
@@ -5,7 +6,7 @@ import { CONVERT_TO_GEOCOORD_PATH, GET_WEATHER_PATH, WEATHER_API_URL } from './c
 import { WeatherConverToCoordResultMock, weatherResultMock } from './mock';
 
 describe('getWeatherByCoord', () => {
-  const APP_ID = 'appid';
+  const APP_ID = 'API_ID';
   const url = new URL(WEATHER_API_URL);
   const lat = 52;
   const lon = 42;
@@ -26,7 +27,7 @@ describe('getWeatherByCoord', () => {
     instance = new WeatherAPI(APP_ID);
   });
 
-  test('success', async () => {
+  test('success request', async () => {
     const handler = axiosMock.onGet(`${url.origin}${url.pathname}`).reply(200, weatherResultMock);
 
     const result = await instance.getWeatherByCoord(lat, lon);
@@ -54,7 +55,7 @@ describe('convertToCoord', () => {
     instance = new WeatherAPI(APP_ID);
   });
 
-  test('success', async () => {
+  test('success request', async () => {
     const handler = axiosMock.onGet(`${url.origin}${url.pathname}`).reply(200, WeatherConverToCoordResultMock);
 
     const result = await instance.convertToCoord(city);

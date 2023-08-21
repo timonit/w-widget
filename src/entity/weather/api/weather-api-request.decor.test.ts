@@ -1,5 +1,6 @@
+import { expect, test, describe, beforeEach} from 'vitest'
 import {
-  AxiosError, AxiosHeaders, AxiosRequestHeaders, AxiosResponse,
+  AxiosError, AxiosHeaders, type AxiosRequestHeaders, type AxiosResponse,
 } from 'axios';
 import { weatherAPIRequest } from './weather-api-request.decor';
 
