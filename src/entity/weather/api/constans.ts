@@ -1,4 +1,4 @@
-export const WEATHER_API_URL = process.env.VUE_APP_API_URL;
+export const WEATHER_API_URL = config.API_URL;
 
 export const GET_WEATHER_PATH = 'data/2.5/weather';
 
