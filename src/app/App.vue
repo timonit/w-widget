@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="container-full w-screen h-screen">
-    <WeatherCard class="shadow-lg"/>
+  <div class="container-full w-screen h-screen p-11">
+    <WeatherCard cityName="уральск" />
   </div>
 </template>

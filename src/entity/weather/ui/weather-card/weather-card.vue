@@ -1,52 +1,27 @@
 <template>
-  <div class="p-4 bg-white" style="width: 250px">
-    <h1 class="text-xl">{{ weather?.name || cityName }}</h1>
-    <div v-if="weather" class="flex flex-col">
+  <div class="p-4 bg-sky-500 w-[250px] relative">
+    <h1 class="text-xl text-white">{{ weather?.name || cityName }}</h1>
+    <div v-if="weather" class="z-10 relative text-white text-sm">
       <img :src="createIconLink(weather.weather[0].icon)" width="100" height="100">
-      <p>{{ weather.weather[0].description }}</p>
-      <div class="flex flex-col gap-2 py-2">
-        <div class="flex" title="Temperature">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-temperature-low" />
-          </div>
-          <span>{{ weather.main.temp.toFixed(0) }}C&deg;, feels like {{
-            weather.main.feels_like.toFixed(0) }}C&deg;</span>
-        </div>
+      <p class="font-light capitalize">{{ weather.weather[0].description }}</p>
+      <div class="gap-2 py-2 font-light grid grid-cols-2">
+        <WeatherMeasure title="Temperature" icon="fa-temperature-low" :value="`${weather.main.temp.toFixed(0)}&deg;`"
+          unit="C" />
 
-        <div class="flex" title="Humidity">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-droplet" />
-          </div>
-          <span>{{ weather.main.humidity }} %</span>
-        </div>
+        <WeatherMeasure title="Feels like" icon="fa-person-rays" :value="`${weather.main.feels_like.toFixed(0)}&deg;`"
+          unit="C" />
 
-        <div class="flex" title="Pressure">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-gauge-high" />
-          </div>
-          <span>{{ weather.main.pressure }} hPa</span>
-        </div>
+        <WeatherMeasure title="Wind" icon="fa-wind" :value="weather.wind.speed" unit="m/s" />
 
-        <div class="flex" title="Wind">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-wind" />
-          </div>
-          <span>{{ weather.wind.speed }} m/s, <font-awesome-icon icon="fa-compass" /> {{ weather.wind.deg }} deg</span>
-        </div>
+        <WeatherMeasure title="Wind direction" icon="fa-compass" :value="weather.wind.deg" unit="deg" />
 
-        <div class="flex" title="Cloud">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-cloud" />
-          </div>
-          <span>{{ weather.clouds?.all || 0 }} %</span>
-        </div>
+        <WeatherMeasure title="Humidity" icon="fa-droplet" :value="weather.main.humidity" unit="%" />
 
-        <div class="flex" title="Visibility">
-          <div class="basis-7">
-            <font-awesome-icon icon="fa-eye" />
-          </div>
-          <span>{{ weather.visibility / 1000 }} km</span>
-        </div>
+        <WeatherMeasure title="Pressure" icon="fa-gauge-high" :value="weather.main.pressure" unit="hPa" />
+
+        <WeatherMeasure title="Cloud" icon="fa-cloud" :value="weather.clouds?.all || 0" unit="%" />
+
+        <WeatherMeasure title="Visibility" icon="fa-eye" :value="weather.visibility / 1000" unit="km" />
       </div>
     </div>
   </div>
@@ -54,26 +29,30 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import WeatherMeasure from './weather-measure.vue';
 import { useWeatherStore, type WeatherResult } from '../..';
 import { GET_ICON } from '../../api/constans';
 
-const cityName = 'Уральск';
+const { cityName } = defineProps({
+  cityName: {
+    type: String,
+    required: true,
+  },
+});
+
 const weatherStore = useWeatherStore();
 const weather = ref<WeatherResult | null>(null);
-
 const createIconLink = (id: string) => `${GET_ICON}/${id}@2x.png`;
 
 weatherStore.fetchWeatherByCity(cityName);
-weatherStore.$subscribe((mutation, state) => {
+
+weatherStore.$subscribe((mutation) => {
   if (Array.isArray(mutation.events)) {
     mutation.events.forEach(event => {
       if (event.key === cityName) weather.value = event.newValue;
     });
   } else {
-    if (mutation.events.key === cityName) {
-      console.log(mutation.events.newValue);
-      weather.value = mutation.events.newValue;
-    }
+    if (mutation.events.key === cityName) weather.value = mutation.events.newValue;
   }
 });
 </script>

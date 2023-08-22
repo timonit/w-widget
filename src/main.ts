@@ -6,9 +6,9 @@ import { App } from './app'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faTemperatureLow, faDroplet, faWind, faCloud, faEye, faGaugeHigh, faCompass } from '@fortawesome/free-solid-svg-icons'
+import { faTemperatureLow, faDroplet, faWind, faCloud, faEye, faGaugeHigh, faCompass, faPersonRays } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faTemperatureLow, faDroplet, faWind, faCloud, faEye,faGaugeHigh, faCompass);
+library.add(faTemperatureLow, faDroplet, faWind, faCloud, faEye,faGaugeHigh, faCompass, faPersonRays);
 
 const app = createApp(App);
 
