@@ -1,6 +1,6 @@
 import { API } from '@/shared';
 import type { WeatherConverToCoordResult, WeatherResult } from '../types';
-import { CONVERT_TO_GEOCOORD_PATH, GET_WEATHER_PATH, WEATHER_API_URL } from './constans';
+import { CONVERT_TO_GEOCOORD_PATH, GET_ICON, GET_WEATHER_PATH, WEATHER_API_URL } from './constans';
 import { weatherAPIRequest } from './weather-api-request.decor';
 
 export default class WeatherAPI extends API {

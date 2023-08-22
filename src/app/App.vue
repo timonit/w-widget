@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { useWeatherStore } from '@/entity/weather';
-
-const weatherStore = useWeatherStore();
-
-const cityName = 'Uralsk';
-
-weatherStore.fetchWeatherByCity(cityName);
+  import WeatherCard from '@/entity/weather/ui/weather-card/weather-card.vue';
 </script>
 
 <template>
-  <div class="container p-6 bg-sky-400 rounded-lg">
-    <h1>timon</h1>
-    <h1>{{ weatherStore.cities[cityName] }}</h1>
+  <div class="container-full w-screen h-screen p-11">
+    <WeatherCard cityName="уральск" />
   </div>
 </template>
