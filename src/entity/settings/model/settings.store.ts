@@ -11,6 +11,11 @@ const useSettingsStore = defineStore('settings', {
   },
   getters: {},
   actions: {
+    setState(state: SettingsState) {
+      this.$patch(state);
+      const storage = new SettingsStorage();
+      storage.save(this.$state);
+    },
     setCity(cityName: string) {
       if (typeof cityName !== 'string') throw new Error('type is not supported');
       if (this.cities.indexOf(cityName) < 0) this.cities = [...this.cities, cityName];

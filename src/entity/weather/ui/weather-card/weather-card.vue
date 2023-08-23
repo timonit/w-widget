@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 bg-sky-500 w-[250px] relative">
+  <div class="p-4 relative bg-sky-500">
     <h1 class="text-xl text-white">{{ weather?.name || cityName }}</h1>
     <div v-if="weather" class="z-10 relative text-white text-sm">
       <img :src="createIconLink(weather.weather[0].icon)" width="100" height="100">
