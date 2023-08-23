@@ -1,10 +1,11 @@
 <template>
-  <SlickList axis="y" class="p-4 w-full" v-model:list="cities" :useDragHandle="true">
-    <ListCityItem v-for="(city, i) in cities" :title="city" :key="city" :index="i" >
+  <SlickList axis="y" class="p-4 w-full" v-model:list="settings.cities" :useDragHandle="true" @update:list="update">
+    <ListCityItem class="z-40 shadow-md" v-for="(city, i) in settings.cities" :city="city" :key="city" :index="i">
       <DragHandle>
         <font-awesome-icon icon="fa-bars" />
       </DragHandle>
     </ListCityItem>
+    <span v-if="!settings.cities.length" class="text-gray-400 text-center">Add the first location</span>
   </SlickList>
 </template>
 
@@ -12,13 +13,12 @@
 import { useSettingsStore } from '@/entity';
 import ListCityItem from './list-city-item.vue';
 import { SlickList, DragHandle } from 'vue-slicksort';
-import { ref, watch } from 'vue';
+import { SettingsStorage } from '@/entity/settings/model/settings.storage';
 
 const settings = useSettingsStore();
+const settingsStorage = new SettingsStorage();
 
-const cities = ref(settings.cities);
-
-watch(cities, (val) => {
-  settings.setState({ cities: val });
-});
+const update = (cities: string[]) => {
+  settingsStorage.save({ ...settings.$state, cities });
+};
 </script>

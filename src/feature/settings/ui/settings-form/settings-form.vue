@@ -1,6 +1,7 @@
 <template>
   <form class="p-4 w-full" @submit="save">
-    <div class="form-control flex flex-nowrap">
+    <label class="text-sm text-gray-400">Add location</label>
+    <div class="form-control flex flex-nowrap shadow-md">
       <input v-model="city" placeholder="Name of city" type="text" class="w-full rounded-md rounded-r-none border-none" />
       <button class="rounded-md rounded-l-none px-4 bg-sky-500 text-white" type="button">
         <font-awesome-icon icon="fa-floppy-disk" />
@@ -18,5 +19,6 @@ const emit = defineEmits<{(e: 'onSave', value: string): void}>();
 const save = (event: Event) => {
   event.preventDefault();
   emit('onSave', city.value);
+  city.value = '';
 }
 </script>

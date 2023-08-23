@@ -19,19 +19,18 @@
       <font-awesome-icon icon="fa-bars" />
     </DragHandle>
 
-    <span class="basis-full pl-2">{{ title }}</span>
+    <span class="basis-full pl-2">{{ city }}</span>
 
-    <button @click="remove" class="text-red-500">
-      <font-awesome-icon icon="fa-trash" />
-    </button>
+    <RemoveCityBtn :cityName="city" />
   </SlickItem>
 </template>
 
 <script lang="ts" setup>
 import { DragHandle, SlickItem } from 'vue-slicksort';
+import RemoveCityBtn from '../remove-city-btn.vue';
 
-const { title } = defineProps({
-  title: {
+const { city, index } = defineProps({
+  city: {
     type: String,
     required: true,
   },
@@ -40,10 +39,4 @@ const { title } = defineProps({
     required: true,
   }
 });
-
-const emit = defineEmits<{(e: 'onRemove', title: string): void}>()
-
-const remove = () => {
-  emit('onRemove', title);
-}
 </script>
