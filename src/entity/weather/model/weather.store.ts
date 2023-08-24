@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { WeatherAPI } from '../api';
 import type { WeatherResult } from '../types';
 import { defineStore } from 'pinia';
@@ -16,9 +17,15 @@ export const useWeatherStore = defineStore('weather', {
   actions: {
     async fetchWeatherByCity(cityName: string) {
       const api = new WeatherAPI(config.API_ID);
-      const geoCoord = await api.convertToCoord(cityName);
-      const result = await api.getWeatherByCoord(geoCoord[0].lat, geoCoord[0].lon);
-      this.cities[cityName] = result;
+      try {
+        const geoCoord = await api.convertToCoord(cityName);
+        const result = await api.getWeatherByCoord(geoCoord[0].lat, geoCoord[0].lon);
+        this.cities[cityName] = result;
+      } catch (error) {
+        if (error instanceof Error || error instanceof AxiosError) {
+          this.errors[cityName] = error;
+        }
+      }
     },
   },
 });
