@@ -1,9 +1,9 @@
 <template>
   <div class="p-4 relative">
-    <h1 class="text-xl text-white">{{ weather?.name || cityName }}</h1>
+    <h1 class="text-xl text-white text-left">{{ weather?.name || cityName }}</h1>
     <div v-if="weather" class="z-10 relative text-white text-sm">
       <img :src="createIconLink(weather.weather[0].icon)" width="100" height="100">
-      <p class="font-light capitalize">{{ weather.weather[0].description }}</p>
+      <p class="font-light capitalize text-left">{{ weather.weather[0].description }}</p>
       <div class="gap-2 py-2 font-light grid grid-cols-2">
         <WeatherMeasure title="Temperature" icon="fa-temperature-low" :value="`${weather.main.temp.toFixed(0)}&deg;`"
           unit="C" />
@@ -32,6 +32,7 @@ import { ref } from 'vue';
 import WeatherMeasure from './weather-measure.vue';
 import { useWeatherStore, type WeatherResult } from '../..';
 import { GET_ICON } from '../../api/constans';
+import { store } from '@/shared/model/storage/store';
 
 const { cityName } = defineProps({
   cityName: {
@@ -40,7 +41,7 @@ const { cityName } = defineProps({
   },
 });
 
-const weatherStore = useWeatherStore();
+const weatherStore = useWeatherStore(store);
 const weather = ref<WeatherResult | null>(null);
 const createIconLink = (id: string) => `${GET_ICON}/${id}@2x.png`;
 
@@ -56,3 +57,7 @@ weatherStore.$subscribe((mutation) => {
   }
 });
 </script>
+
+<style scoped>
+@import '@/app/style.css';
+</style>

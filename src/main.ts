@@ -1,7 +1,7 @@
-import './app/main.css'
+import { store } from './shared/model/storage/store';
+import './app/style.css'
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import { App } from './app'
 
 import {plugin as Slicksort} from 'vue-slicksort';
@@ -38,9 +38,9 @@ library.add(
   faXmark,
 );
 
-const app = createApp(App);
+export const app = createApp(App);
 
-app.use(createPinia());
+app.use(store);
 app.use(Slicksort);
 app.component('font-awesome-icon', FontAwesomeIcon);
 

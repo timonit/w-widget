@@ -1,5 +1,5 @@
 <template>
-  <form class="p-4 w-full" @submit="save">
+  <form class="p-4 w-full text-left" @submit="save">
     <label class="text-sm text-gray-400">Add location</label>
     <div class="form-control flex flex-nowrap shadow-md">
       <input v-model="city" placeholder="Name of city" type="text" class="w-full rounded-md rounded-r-none border-none" />
