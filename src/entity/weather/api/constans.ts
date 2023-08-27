@@ -1,4 +1,4 @@
-export const WEATHER_API_URL = appConfig.API_URL;
+export const WEATHER_API_URL = 'https://api.openweathermap.org';
 
 export const GET_WEATHER_PATH = 'data/2.5/weather';
 

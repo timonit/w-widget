@@ -7,7 +7,6 @@ export default mergeConfig(
     ...sharedConfig,
     define: {
       appConfig: {
-        API_URL: 'http://localhost:3000',
         API_ID: 'API_ID',
       }
     }
