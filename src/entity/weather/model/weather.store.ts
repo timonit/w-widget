@@ -16,7 +16,7 @@ export const useWeatherStore = defineStore('weather', {
   getters: {},
   actions: {
     async fetchWeatherByCity(cityName: string) {
-      const api = new WeatherAPI(config.API_ID);
+      const api = new WeatherAPI(appConfig.API_ID);
       try {
         const geoCoord = await api.convertToCoord(cityName);
         const result = await api.getWeatherByCoord(geoCoord[0].lat, geoCoord[0].lon);

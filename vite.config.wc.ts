@@ -12,6 +12,7 @@ export default defineConfig(({mode}) => {
       assetsDir: '.',
       cssCodeSplit: false,
       rollupOptions: {
+        input: './src/web-component.ts',
         output: {
           assetFileNames: "[name][extname]",
           chunkFileNames: "[name].js",

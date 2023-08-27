@@ -1,9 +1,9 @@
 <template>
   <div class="p-4 relative">
-    <h1 class="text-xl text-white">{{ weather?.name || cityName }}</h1>
+    <h1 class="text-xl text-white text-left">{{ weather?.name || cityName }}</h1>
     <div v-if="weather" class="z-10 relative text-white text-sm">
       <img :src="createIconLink(weather.weather[0].icon)" width="100" height="100">
-      <p class="font-light capitalize">{{ weather.weather[0].description }}</p>
+      <p class="font-light capitalize text-left">{{ weather.weather[0].description }}</p>
       <div class="gap-2 py-2 font-light grid grid-cols-2">
         <WeatherMeasure title="Temperature" icon="fa-temperature-low" :value="`${weather.main.temp.toFixed(0)}&deg;`"
           unit="C" />
@@ -46,13 +46,9 @@ const createIconLink = (id: string) => `${GET_ICON}/${id}@2x.png`;
 
 weatherStore.fetchWeatherByCity(cityName);
 
-weatherStore.$subscribe((mutation) => {
-  if (Array.isArray(mutation.events)) {
-    mutation.events.forEach(event => {
-      if (event.key === cityName) weather.value = event.newValue;
-    });
-  } else {
-    if (mutation.events.key === cityName) weather.value = mutation.events.newValue;
+weatherStore.$subscribe((mutation, state) => {
+  if (mutation.storeId === 'weather') {
+      weather.value = state.cities[cityName];
   }
 });
 </script>

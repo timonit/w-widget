@@ -1,8 +1,8 @@
 import { store } from './shared/model/storage/store';
 import './app/style.css'
 
-import { createApp } from 'vue'
-import { App } from './app'
+import { createApp, defineCustomElement } from 'vue'
+import WeatherWidget from './app/WeatherWidget.ce.vue';
 
 import {plugin as Slicksort} from 'vue-slicksort';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -38,10 +38,16 @@ library.add(
   faXmark,
 );
 
-export const app = createApp(App);
-
-app.use(store);
-app.use(Slicksort);
-app.component('font-awesome-icon', FontAwesomeIcon);
-
-app.mount('weather-widget');
+customElements.define(
+  'weather-widget',
+  class extends HTMLElement {
+    connectedCallback() {
+      const app = createApp(WeatherWidget);
+      app.use(store);
+      app.use(Slicksort);
+      app.component('font-awesome-icon', FontAwesomeIcon);
+      
+      app.mount(this);
+    }
+  }
+);
