@@ -13,7 +13,7 @@ describe('init state', () => {
   });
 
   test('reset settings from localstorage', () => {
-    localStorage.setItem('weather-settings', JSON.stringify(['London']));
+    localStorage.setItem('weather-settings', JSON.stringify({cities: ['London']}));
     
     const instance = useSettingsStore();
     
@@ -134,7 +134,7 @@ describe('moveCity', () => {
 
   test('move city to previous place', () => {
     const cityName = 'city';
-    localStorage.setItem('weather-settings', JSON.stringify(['test', cityName]));
+    localStorage.setItem('weather-settings', JSON.stringify({cities: ['test', cityName]}));
     const instance = useSettingsStore();
 
     instance.moveCity(cityName, 0);
