@@ -44,4 +44,4 @@ app.use(store);
 app.use(Slicksort);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
-app.mount('#app');
+app.mount('weather-widget');

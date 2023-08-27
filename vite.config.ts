@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
 import sharedConfig from './vite.config.shared';
-import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({mode}) => {
@@ -9,25 +8,22 @@ export default defineConfig(({mode}) => {
   return {
     ...sharedConfig,
     build: {
-      lib: {
-        entry: resolve(__dirname, 'src/index.ts'),
-        name: 'WeatherWidget',
-        fileName: (format) => `weather-widget.${format}.js`,
-      },
+      outDir: 'dist',
+      assetsDir: '.',
+      cssCodeSplit: false,
       rollupOptions: {
-        external: ['vue'],
         output: {
-          globals: {
-            vue: 'Vue',
-          },
+          assetFileNames: "[name][extname]",
+          chunkFileNames: "[name].js",
+          entryFileNames: "[name].js"
         },
-      },
+      }
     },
     define: {
       appConfig: {
         API_URL: env.API_URL,
         API_ID: env.API_ID,
-      }
+      },
     },
   }
 })

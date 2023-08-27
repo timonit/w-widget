@@ -32,7 +32,6 @@ import { ref } from 'vue';
 import WeatherMeasure from './weather-measure.vue';
 import { useWeatherStore, type WeatherResult } from '../..';
 import { GET_ICON } from '../../api/constans';
-import { store } from '@/shared/model/storage/store';
 
 const { cityName } = defineProps({
   cityName: {
@@ -41,23 +40,15 @@ const { cityName } = defineProps({
   },
 });
 
-const weatherStore = useWeatherStore(store);
+const weatherStore = useWeatherStore();
 const weather = ref<WeatherResult | null>(null);
 const createIconLink = (id: string) => `${GET_ICON}/${id}@2x.png`;
 
 weatherStore.fetchWeatherByCity(cityName);
 
-weatherStore.$subscribe((mutation) => {
-  if (Array.isArray(mutation.events)) {
-    mutation.events.forEach(event => {
-      if (event.key === cityName) weather.value = event.newValue;
-    });
-  } else {
-    if (mutation.events.key === cityName) weather.value = mutation.events.newValue;
+weatherStore.$subscribe((mutation, state) => {
+  if (mutation.storeId === 'weather') {
+      weather.value = state.cities[cityName];
   }
 });
 </script>
-
-<style scoped>
-@import '@/app/style.css';
-</style>
