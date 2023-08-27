@@ -21,7 +21,6 @@ export default defineConfig(({mode}) => {
     },
     define: {
       appConfig: {
-        API_URL: env.API_URL,
         API_ID: env.API_ID,
       },
     },
