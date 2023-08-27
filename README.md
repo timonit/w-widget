@@ -1,34 +1,51 @@
-# weather-widget
+# w-widget
 
-## Project setup
-```
-yarn install
-```
+Виджет погоды. 
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Сброка
+Весь код собирается в папке dist, в двух файлах index.js, style.css.
 
-### Compiles and minifies for production
-```
-yarn build
+```js
+// npm
+npm run build:bundle
+
+// yarn
+yarn build:bundle
 ```
 
-### Run your unit tests
+Пример использования
 ```
-yarn test:unit
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <script type="module" crossorigin src="/index.js"></script>
+</head>
+<body>
+    <weather-widget>
+</body>
+
 ```
 
-### Run your end-to-end tests
-```
-yarn test:e2e
+
+
+## Сборка веб компонента
+Эксперементальная версия виджета в виде веб компонента. Компилируются 2 файла web-component.js, style.css
+
+```js
+// npm
+npm run build:wc
+
+// yarn
+yarn build:wc
 ```
 
-### Lints and fixes files
+Пример использования
 ```
-yarn lint
-```
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <script type="module" crossorigin src="/web-component.js"></script>
+</head>
+<body>
+    <weather-widget>
+</body>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```

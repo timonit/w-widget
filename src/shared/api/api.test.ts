@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { expect, test, describe, beforeEach} from 'vitest';
+import axios, { type AxiosResponse } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { API } from '@/shared';
 
@@ -33,8 +34,8 @@ describe('request', () => {
 
     try {
       await instance.request({ method: 'GET' });
-    } catch (err) {
-      expect(err).toBeInstanceOf(AxiosError);
+    } catch (err: any) {
+      expect(err.isAxiosError).toBeTruthy();
     }
   });
 });
